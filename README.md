@@ -33,7 +33,5 @@ Usage:
 
 
 Then add the following:
+
 	0       0       *       *       *       /root/bin/openbsd-odum/odum.sh
-
-
-
