@@ -38,7 +38,9 @@ There are two situations where this script will fail to report properly:
 
 1. When traffic reaches a point that the byte counter of netstat rolls over to zero
 
-2. When the system is shutdown mid-month after it has started logging data
+2. When the system is shutdown mid-month after it has started logging data. The data
+   will continue to log and this can be computed manually if needed. It will start
+   working again once the next month starts.
 
 DISCLAIMER
 
