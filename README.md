@@ -25,9 +25,15 @@ This Month's Data Usage Out: 709 MB
 
 Usage:
 
-sudo crontab -e
+	sudo su -
+	mkdir ~/bin
+	cd ~/bin
+	git clone git://github.com/avatar4d/openbsd-dum.git
+	crontab -e
 
-        0       0       *       *       *       /root/bin/odum/odum.sh
+
+Then add the following:
+	0       0       *       *       *       /root/bin/openbsd-odum/odum.sh
 
 
 
