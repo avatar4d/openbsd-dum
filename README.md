@@ -7,20 +7,20 @@ This is a script for OpenBSD that will report daily data consumption in MB as we
 
 By default it logs to /var/log/odum/odum.log in the following format:
 
-DATE|BYTES-IN|BYTES-OUT
+	DATE|BYTES-IN|BYTES-OUT
 
 
 Example Log Entry:
 
-2012-04-01|164584809291|162057262018
+	2012-04-01|164584809291|162057262018
 
 
 Example Output:
 
-Today's Data Usage In: 713  MB
-Today's Data Usage Out: 63 MB
-This Month's Data Usage In: 2415 MB
-This Month's Data Usage Out: 709 MB
+	Today's Data Usage In: 713  MB
+	Today's Data Usage Out: 63 MB
+	This Month's Data Usage In: 2415 MB
+	This Month's Data Usage Out: 709 MB
 
 
 Usage:
