@@ -87,9 +87,9 @@ log_rotate() {
     #Create new log if new month and back up old log
     #NOTE: THIS WILL NEVER DELETE LOGS
     if [ $CURRENT_MONTH != 01 ]; then
-        mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) #If not January, subtract 1 from month
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) #If not January, subtract 1 from month
     else
-        mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-12 #otherwise make 12
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-12 #otherwise make 12
     fi
 
 }
