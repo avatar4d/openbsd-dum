@@ -36,14 +36,9 @@ LICENSE
 
 There are two situations where this script will fail to report properly:
 
-1. When traffic reaches a point that the byte counter of netstat rolls over to zero.
-   This can happen if the system is not rebooted for a period of time, although it 
-   is unlikely to occur on a home connection, especially if the system is keeps up
-   with the six month release cycle
+1. When traffic reaches a point that the byte counter of netstat rolls over to zero
 
-2. When the system is shutdown mid-month after it has started logging data. The data
-   will continue to log and this can be computed manually if needed. It will start
-   working again once the next month starts.
+2. When the system is shutdown mid-month after it has started logging data
 
 DISCLAIMER
 
