@@ -17,13 +17,22 @@ DISCLAIMER
 
 
 # VARIABLES
+
+#####################################################################
+# Change the following to whatever network card you wish to monitor #
+								    #
+NIC=vr0								    #
+ 								    #
+#####################################################################
+
 PATH="/var/log/odum"
 LOGFILE="odum.log"
+
 #Grab today's date as well as the current in/out bytes as displyed by /usr/bin/netstat
 CURRENT_DAY=`/bin/date +%d`
 CURRENT_MONTH=`/bin/date +%m`
-CURRENT_BYTES_IN=`/usr/bin/netstat -b -n -I xl0 | /usr/bin/grep xl0 | /usr/bin/tail -n1 | /usr/bin/awk '{print $5}'`
-CURRENT_BYTES_OUT=`/usr/bin/netstat -b -n -I xl0 | /usr/bin/grep xl0 | /usr/bin/tail -n1 | /usr/bin/awk '{print $6}'`
+CURRENT_BYTES_IN=`/usr/bin/netstat -b -n -I $NIC | /usr/bin/grep $NIC | /usr/bin/tail -n1 | /usr/bin/awk '{print $5}'`
+CURRENT_BYTES_OUT=`/usr/bin/netstat -b -n -I $NIC | /usr/bin/grep $NIC | /usr/bin/tail -n1 | /usr/bin/awk '{print $6}'`
 
 
 # FUNCTIONS
@@ -54,6 +63,7 @@ report() {
 log_rotate() {
     #Create new log if new month and back up old log
     #NOTE: THIS WILL NEVER DELETE LOGS
+    #IF RUN AT MIDNIGHT IN CRON THIS WILL CREATE AN INCORRECT YEAR FOR DECEMBER LOG
     if [ $CURRENT_MONTH != 01 ]; then
         /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) #If not January, subtract 1 from month
     else
