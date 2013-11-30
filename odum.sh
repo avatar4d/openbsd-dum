@@ -63,11 +63,12 @@ report() {
 log_rotate() {
     #Create new log if new month and back up old log
     #NOTE: THIS WILL NEVER DELETE LOGS
-    #IF RUN AT MIDNIGHT IN CRON THIS WILL CREATE AN INCORRECT YEAR FOR DECEMBER LOG
     if [ $CURRENT_MONTH != 01 ]; then
-        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) #If not January, subtract 1 from month
+	#If not January, subtract 1 from month
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) 
     else
-        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-12 #otherwise make 12
+	#otherwise subtract 1 from the year and append 12 for month of December
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.$((`/bin/date +%Y`-1))-12 
     fi
 
 }
