@@ -66,7 +66,6 @@ log_rotate() {
     if [ $CURRENT_MONTH != 01 ]; then
 	#If not January, subtract 1 from month
         /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$(($CURRENT_MONTH - 1)) 
-        #/bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) 
     else
 	#otherwise subtract 1 from the year and append 12 for month of December
         /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.$((`/bin/date +%Y`-1))-12 
