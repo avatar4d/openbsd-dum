@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh 
  
 << DISCLAIMER
 
@@ -30,7 +30,7 @@ LOGFILE="odum.log"
 
 #Grab today's date as well as the current in/out bytes as displyed by /usr/bin/netstat
 CURRENT_DAY=`/bin/date +%d`
-CURRENT_MONTH=`/bin/date +%m`
+CURRENT_MONTH=`/bin/date +%m | /usr/bin/bc`
 CURRENT_BYTES_IN=`/usr/bin/netstat -b -n -I $NIC | /usr/bin/grep $NIC | /usr/bin/tail -n1 | /usr/bin/awk '{print $5}'`
 CURRENT_BYTES_OUT=`/usr/bin/netstat -b -n -I $NIC | /usr/bin/grep $NIC | /usr/bin/tail -n1 | /usr/bin/awk '{print $6}'`
 
@@ -65,7 +65,8 @@ log_rotate() {
     #NOTE: THIS WILL NEVER DELETE LOGS
     if [ $CURRENT_MONTH != 01 ]; then
 	#If not January, subtract 1 from month
-        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) 
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$(($CURRENT_MONTH - 1)) 
+        #/bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$((`/bin/date +%m` - 1)) 
     else
 	#otherwise subtract 1 from the year and append 12 for month of December
         /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.$((`/bin/date +%Y`-1))-12 
