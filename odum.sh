@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
  
 << DISCLAIMER
 
@@ -31,6 +31,7 @@ LOGFILE="odum.log"
 #Grab today's date as well as the current in/out bytes as displyed by /usr/bin/netstat
 CURRENT_DAY=`/bin/date +%d`
 CURRENT_MONTH=`/bin/date +%m`
+CURRENT_YEAR=`/bin/date +%Y`
 CURRENT_BYTES_IN=`/usr/bin/netstat -b -n -I $NIC | /usr/bin/grep $NIC | /usr/bin/tail -n1 | /usr/bin/awk '{print $5}'`
 CURRENT_BYTES_OUT=`/usr/bin/netstat -b -n -I $NIC | /usr/bin/grep $NIC | /usr/bin/tail -n1 | /usr/bin/awk '{print $6}'`
 
@@ -65,12 +66,17 @@ log_rotate() {
     #NOTE: THIS WILL NEVER DELETE LOGS
     if [ $CURRENT_MONTH != 01 ]; then
 	#If not January, subtract 1 from month
-        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.`/bin/date +%Y`-$(($CURRENT_MONTH - 1)) 
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.$(($CURRENT_YEAR))-$(($CURRENT_MONTH - 1)) 
     else
 	#otherwise subtract 1 from the year and append 12 for month of December
-        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.$((`/bin/date +%Y`-1))-12 
+        /bin/mv $PATH/$LOGFILE $PATH/$LOGFILE.$(($CURRENT_YEAR - 1))-12 
     fi
-
+ 
+    #Remove logs older than 1 year old
+    if [ `/bin/ls $PATH/$LOGFILE.$(($CURRENT_YEAR - 2))-* 2>/dev/null | /usr/bin/wc -l` != 0 ]; then
+	echo "Removing old files"
+	/bin/rm $PATH/$LOGFILE.$(($CURRENT_YEAR - 2))-*
+    fi 
 }
 
 
@@ -102,3 +108,5 @@ fi
 if [ $CURRENT_DAY != "`/usr/bin/tail -n1 $PATH/$LOGFILE | /usr/bin/cut -d"-" -f3 | /usr/bin/cut -d"|" -f1`" ]; then
     /bin/echo "`/bin/date +%Y-%m-%d`|$CURRENT_BYTES_IN|$CURRENT_BYTES_OUT" >> $PATH/$LOGFILE
 fi
+
+
