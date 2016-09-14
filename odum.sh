@@ -99,8 +99,10 @@ if [ ! -d $PATH ]; then
 fi
 
 #Check if log exists and rotate log if server was shutdown during a month change
-if [ -e $PATH/$LOGFILE ] && [ $CURRENT_MONTH != `/usr/bin/head -n1 $PATH/$LOGFILE | /usr/bin/cut -d"-" -f2` ]; then
-    log_rotate
+if [ -e $PATH/$LOGFILE ] && [ -n "`/bin/cat $PATH/$LOGFILE`" ]; then
+        if [ $CURRENT_MONTH != `/usr/bin/head -n1 $PATH/$LOGFILE | /usr/bin/cut -d"-" -f2` ]; then
+                log_rotate
+        fi
 fi
 
 #Check if log exists and has data report on metrics
