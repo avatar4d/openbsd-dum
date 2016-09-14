@@ -98,7 +98,7 @@ if [ ! -d $PATH ]; then
     /usr/bin/touch $PATH/$LOGFILE
 fi
 
-#Check if log exists and rotate log if server was shutdown during a month change
+#Check if log exists, has data and rotate log if server was shutdown during a month change
 if [ -e $PATH/$LOGFILE ] && [ -n "`/bin/cat $PATH/$LOGFILE`" ]; then
         if [ $CURRENT_MONTH != `/usr/bin/head -n1 $PATH/$LOGFILE | /usr/bin/cut -d"-" -f2` ]; then
                 log_rotate
